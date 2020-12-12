@@ -130,6 +130,12 @@ def check_in(username, password):
              "jsonData": {"templateid": "pneumonia", "token": token},
              "method": "userComeApp"}
     post_dict = get_post_json(token, json1)
+    
+    for j in post_dict['updatainfo']:  # 这里获取打卡json字段的打卡信息，微信推送的json字段
+    if j['propertyname'] == 'temperature':  # 找到propertyname为temperature的字段
+    	j['value'] = '36.4'   # 由于原先为null，这里直接设置36.2（根据自己学校打卡选项来）
+
+        
     if not post_dict:
         errmsg = '获取完美校园打卡post参数失败'
         logging.warning(errmsg)
